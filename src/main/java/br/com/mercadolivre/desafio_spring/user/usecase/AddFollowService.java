@@ -25,7 +25,7 @@ public class AddFollowService {
         User userFollowing = userRepository.findById(userId);
         if (userToFollow == null || userFollowing == null)
             throw new UserNotFoundException();
-        userRepository.addFollower(userToFollow, userFollowing);
+        userRepository.addFollow(userToFollow, userFollowing);
         return HttpStatus.OK;
     }
 }

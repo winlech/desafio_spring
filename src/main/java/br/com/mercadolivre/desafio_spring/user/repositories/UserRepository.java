@@ -23,8 +23,9 @@ public class UserRepository {
         )
     );
 
-    public void addFollower(User userToFollow, User userFollowing) {
+    public void addFollow(User userToFollow, User userFollowing) {
         userToFollow.getFollowers().add(new FollowDTO(userFollowing.getUserId(), userFollowing.getUserName()));
+        userFollowing.getFollowing().add(new FollowDTO(userToFollow.getUserId(), userToFollow.getUserName()));
     }
 
     public User findById(Long userId) {
