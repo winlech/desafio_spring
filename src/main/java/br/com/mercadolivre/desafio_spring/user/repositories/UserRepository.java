@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository {
@@ -33,5 +34,15 @@ public class UserRepository {
                 .filter(u -> u.getUserId().equals(userId))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void removeFollower(User userFollowing, User userFollower) {
+        userFollowing.setFollowing(userFollowing.getFollowing().stream()
+                .filter(f -> !f.getUserId().equals(userFollower.getUserId()))
+                .collect(Collectors.toList()));
+
+        userFollower.setFollowers(userFollower.getFollowers().stream()
+                .filter(f -> !f.getUserId().equals(userFollowing.getUserId()))
+                .collect(Collectors.toList()));
     }
 }

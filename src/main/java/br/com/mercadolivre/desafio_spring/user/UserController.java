@@ -3,10 +3,7 @@ package br.com.mercadolivre.desafio_spring.user;
 import br.com.mercadolivre.desafio_spring.user.dto.UserCountDTO;
 import br.com.mercadolivre.desafio_spring.user.dto.UserFollowedDTO;
 import br.com.mercadolivre.desafio_spring.user.dto.UserFollowersDTO;
-import br.com.mercadolivre.desafio_spring.user.usecase.AddFollowService;
-import br.com.mercadolivre.desafio_spring.user.usecase.ReadUserCountFollowersService;
-import br.com.mercadolivre.desafio_spring.user.usecase.ReadUserFollowedService;
-import br.com.mercadolivre.desafio_spring.user.usecase.ReadUserFollowersService;
+import br.com.mercadolivre.desafio_spring.user.usecase.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +17,15 @@ public class UserController {
     private final ReadUserCountFollowersService readUserCountFollowersService;
     private final ReadUserFollowersService readUserFollowersService;
     private final ReadUserFollowedService readUserFollowedService;
+    private final RemoveFollowService removeFollowService;
 
     @Autowired
-    public UserController(AddFollowService addFollowService, ReadUserCountFollowersService readUserCountFollowersService, ReadUserFollowersService readUserFollowersService, ReadUserFollowedService readUserFollowedService) {
+    public UserController(AddFollowService addFollowService, ReadUserCountFollowersService readUserCountFollowersService, ReadUserFollowersService readUserFollowersService, ReadUserFollowedService readUserFollowedService, RemoveFollowService removeFollowService) {
         this.addFollowService = addFollowService;
         this.readUserCountFollowersService = readUserCountFollowersService;
         this.readUserFollowersService = readUserFollowersService;
         this.readUserFollowedService = readUserFollowedService;
+        this.removeFollowService = removeFollowService;
     }
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
@@ -47,5 +46,10 @@ public class UserController {
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<UserFollowedDTO> readUserFollowed(@PathVariable Long userId) {
         return new ResponseEntity<>(readUserFollowedService.execute(userId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{userId}/unfollow/{userToUnFollow}")
+    public ResponseEntity<HttpStatus> unfollowUser(@PathVariable Long userId, @PathVariable Long userToUnFollow) {
+        return new ResponseEntity<>(removeFollowService.execute(userId, userToUnFollow));
     }
 }
