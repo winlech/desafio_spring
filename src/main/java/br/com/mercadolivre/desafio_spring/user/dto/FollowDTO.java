@@ -1,6 +1,6 @@
 package br.com.mercadolivre.desafio_spring.user.dto;
 
-public class FollowDTO {
+public class FollowDTO implements Comparable<FollowDTO> {
 
     private Long userId;
     private String userName;
@@ -24,5 +24,10 @@ public class FollowDTO {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    @Override
+    public int compareTo(FollowDTO o) {
+        return this.getUserName().compareTo(o.getUserName());
     }
 }

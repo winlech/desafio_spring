@@ -1,6 +1,8 @@
 package br.com.mercadolivre.desafio_spring.user.usecase;
 
+import br.com.mercadolivre.desafio_spring.shared.utils.OrderUserNameFollow;
 import br.com.mercadolivre.desafio_spring.user.dto.UserFollowedDTO;
+import br.com.mercadolivre.desafio_spring.user.dto.UserFollowersDTO;
 import br.com.mercadolivre.desafio_spring.user.entities.User;
 import br.com.mercadolivre.desafio_spring.user.repositories.UserRepository;
 import br.com.mercadolivre.desafio_spring.validations.exceptions.UserNotFoundException;
@@ -17,10 +19,16 @@ public class ReadUserFollowedService {
         this.userRepository = userRepository;
     }
 
-    public UserFollowedDTO execute(Long userId) {
+    public UserFollowedDTO execute(Long userId, String s) {
         User user = userRepository.findById(userId);
+        UserFollowedDTO userFollowedDTO;
+
         if (user == null)
             throw new UserNotFoundException();
-        return new UserFollowedDTO(user.getUserId(), user.getUserName(), user.getFollowing());
+
+        userFollowedDTO = new UserFollowedDTO(user.getUserId(), user.getUserName(), user.getFollowing());
+        userFollowedDTO.setFollowed(OrderUserNameFollow.execute(s, userFollowedDTO.getFollowed()));
+
+        return userFollowedDTO;
     }
 }

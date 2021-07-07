@@ -25,4 +25,8 @@ public class UserFollowersDTO {
     public List<FollowDTO> getFollowers() {
         return followers;
     }
+
+    public void setFollowers(List<FollowDTO> followers) {
+        this.followers = followers;
+    }
 }

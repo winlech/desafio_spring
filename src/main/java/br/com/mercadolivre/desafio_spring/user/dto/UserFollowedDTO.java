@@ -14,6 +14,10 @@ public class UserFollowedDTO {
         this.followed = followed;
     }
 
+    public void setFollowed(List<FollowDTO> followed) {
+        this.followed = followed;
+    }
+
     public Long getUserId() {
         return userId;
     }

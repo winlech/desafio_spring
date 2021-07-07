@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -39,13 +41,17 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserFollowersDTO> readUserFollowers(@PathVariable Long userId) {
-        return new ResponseEntity<>(readUserFollowersService.execute(userId), HttpStatus.OK);
+    public ResponseEntity<UserFollowersDTO> readUserFollowers(@PathVariable Long userId,
+                                                              @RequestParam(required = false,
+                                                                            name = "order") Optional<String> order) {
+        return new ResponseEntity<>(readUserFollowersService.execute(userId, order.orElse("")), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserFollowedDTO> readUserFollowed(@PathVariable Long userId) {
-        return new ResponseEntity<>(readUserFollowedService.execute(userId), HttpStatus.OK);
+    public ResponseEntity<UserFollowedDTO> readUserFollowed(@PathVariable Long userId,
+                                                              @RequestParam(required = false,
+                                                                            name = "order") Optional<String> order) {
+        return new ResponseEntity<>(readUserFollowedService.execute(userId, order.orElse("")), HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}/unfollow/{userToUnFollow}")
