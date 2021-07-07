@@ -10,9 +10,9 @@ import java.util.Date;
 public class Post {
 
     @NotNull
-    private int userId;
+    private Long userId;
     @NotNull
-    private int id_post;
+    private Long id_post;
 
     @NotNull
     @JsonSerialize(as = Date.class)
@@ -30,7 +30,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(int userId, int id_post, Date date, Product detail, int category, double price) {
+    public Post(Long userId, Long id_post, Date date, Product detail, int category, double price) {
         this.userId = userId;
         this.id_post = id_post;
         this.date = date;
@@ -39,11 +39,11 @@ public class Post {
         this.price = price;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public int getId_post() {
+    public Long getId_post() {
         return id_post;
     }
 
@@ -63,11 +63,11 @@ public class Post {
         return price;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public void setId_post(int id_post) {
+    public void setId_post(Long id_post) {
         this.id_post = id_post;
     }
 
