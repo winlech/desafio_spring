@@ -54,7 +54,7 @@ public class RequestPostPromoDTO {
     }
 
     public Post convertToPost() {
-        return new Post(this.getUserId(), this.getId_post(), this.getDate(), this.getDetail(), this.getCategory(), this.getPrice(), this.isHasPromo(), this.getDiscount());
+        return new Post(this.getUserId(), this.getId_post(), this.getDate(), this.getDetail(), this.getCategory(), this.getPrice(), this.getHasPromo(), this.getDiscount());
 
     }
 
@@ -102,7 +102,7 @@ public class RequestPostPromoDTO {
         this.price = price;
     }
 
-    public boolean isHasPromo() {
+    public boolean getHasPromo() {
         return hasPromo;
     }
 
