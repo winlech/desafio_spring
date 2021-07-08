@@ -1,10 +1,7 @@
 package br.com.mercadolivre.desafio_spring.product;
 
 import br.com.mercadolivre.desafio_spring.product.dto.*;
-import br.com.mercadolivre.desafio_spring.product.usecase.CountPromoPostsUserService;
-import br.com.mercadolivre.desafio_spring.product.usecase.CreatePostNoPromoService;
-import br.com.mercadolivre.desafio_spring.product.usecase.CreatePostPromoService;
-import br.com.mercadolivre.desafio_spring.product.usecase.ReadProductsFollowedService;
+import br.com.mercadolivre.desafio_spring.product.usecase.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +18,15 @@ public class ProductController {
     private final CreatePostPromoService createPostPromoService;
     private final ReadProductsFollowedService readProductsFollowedService;
     private final CountPromoPostsUserService countPromoPostsUserService;
+    private final ReadPromoPostService readPromoPostService;
 
     @Autowired
-    public ProductController(CreatePostNoPromoService createPostNoPromoService, CreatePostNoPromoService createPostNoPromoServiceNoPromo, CreatePostPromoService createPostPromoService, ReadProductsFollowedService readProductsFollowedService, CountPromoPostsUserService countPromoPostsUserService) {
+    public ProductController(CreatePostNoPromoService createPostNoPromoService, CreatePostNoPromoService createPostNoPromoServiceNoPromo, CreatePostPromoService createPostPromoService, ReadProductsFollowedService readProductsFollowedService, CountPromoPostsUserService countPromoPostsUserService, ReadPromoPostService readPromoPostService) {
         this.createPostNoPromoServiceNoPromo = createPostNoPromoServiceNoPromo;
         this.createPostPromoService = createPostPromoService;
         this.readProductsFollowedService = readProductsFollowedService;
         this.countPromoPostsUserService = countPromoPostsUserService;
+        this.readPromoPostService = readPromoPostService;
     }
 
     @PostMapping("/newpost")
@@ -50,6 +49,11 @@ public class ProductController {
     @GetMapping("/{userId}/countPromo/")
     public ResponseEntity<ResponsePromoPostsCountDTO> getCountPromo(@PathVariable Long userId) {
         return new ResponseEntity<>(countPromoPostsUserService.execute(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/list/")
+    public ResponseEntity<UserPostsDTO<PostPromoDTO>> getUserPromoPosts(@PathVariable Long userId) {
+        return new ResponseEntity<>(readPromoPostService.execute(userId), HttpStatus.OK);
     }
 
 }

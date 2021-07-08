@@ -43,7 +43,7 @@ public class Post {
         this.discount = discount;
     }
 
-    public boolean isHasPromo() {
+    public boolean getHasPromo() {
         return hasPromo;
     }
 

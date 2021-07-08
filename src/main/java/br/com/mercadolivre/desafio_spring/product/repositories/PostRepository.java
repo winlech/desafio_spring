@@ -28,7 +28,7 @@ public class PostRepository {
 
     public List<Post> findHasPromoByUserId(Long userId) {
         return this.findAllByUserId(userId).stream()
-                .filter(Post::isHasPromo)
+                .filter(Post::getHasPromo)
                 .collect(Collectors.toList());
     }
 }

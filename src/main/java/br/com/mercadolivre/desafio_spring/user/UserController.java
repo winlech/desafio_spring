@@ -54,7 +54,7 @@ public class UserController {
         return new ResponseEntity<>(readUserFollowedService.execute(userId, order.orElse("")), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{userId}/unfollow/{userToUnFollow}")
+    @PostMapping("/{userId}/unfollow/{userToUnFollow}")
     public ResponseEntity<HttpStatus> unfollowUser(@PathVariable Long userId, @PathVariable Long userToUnFollow) {
         return new ResponseEntity<>(removeFollowService.execute(userId, userToUnFollow));
     }
