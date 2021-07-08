@@ -52,8 +52,10 @@ public class ProductController {
     }
 
     @GetMapping("/{userId}/list/")
-    public ResponseEntity<UserPostsDTO<PostPromoDTO>> getUserPromoPosts(@PathVariable Long userId) {
-        return new ResponseEntity<>(readPromoPostService.execute(userId), HttpStatus.OK);
+    public ResponseEntity<UserPostsDTO<PostPromoDTO>> getUserPromoPosts(@PathVariable Long userId,
+                                                                        @RequestParam(required = false,
+                                                                        name = "order")Optional<String> order) {
+        return new ResponseEntity<>(readPromoPostService.execute(userId, order.orElse("")), HttpStatus.OK);
     }
 
 }

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class Post {
+public class Post implements Comparable<Post> {
 
     private Long userId;
     private Long id_post;
@@ -105,5 +105,10 @@ public class Post {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public int compareTo(Post o) {
+        return this.getDetail().getProductName().compareTo(o.getDetail().getProductName());
     }
 }
