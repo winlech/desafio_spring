@@ -2,15 +2,15 @@ package br.com.mercadolivre.desafio_spring.product.dto;
 
 import java.util.List;
 
-public class UserPostsDTO {
+public class UserPostsDTO<T> {
 
     private Long userId;
-    private List<PostDTO> posts;
+    private List<T> posts;
 
     public UserPostsDTO() {
     }
 
-    public UserPostsDTO(Long userId, List<PostDTO> posts) {
+    public UserPostsDTO(Long userId, List<T> posts) {
         this.userId = userId;
         this.posts = posts;
     }
@@ -19,7 +19,7 @@ public class UserPostsDTO {
         return userId;
     }
 
-    public List<PostDTO> getPosts() {
+    public List<T> getPosts() {
         return posts;
     }
 
@@ -27,7 +27,7 @@ public class UserPostsDTO {
         this.userId = userId;
     }
 
-    public void setPosts(List<PostDTO> posts) {
+    public void setPosts(List<T> posts) {
         this.posts = posts;
     }
 }

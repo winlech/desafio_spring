@@ -4,10 +4,9 @@ import br.com.mercadolivre.desafio_spring.product.entities.Post;
 import br.com.mercadolivre.desafio_spring.product.entities.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.util.Comparator;
 import java.util.Date;
 
-public class PostDTO implements Comparable<PostDTO> {
+public class PostNoPromoDTO implements Comparable<PostNoPromoDTO> {
 
     private Long id_post;
     @JsonFormat(pattern = "dd-MM-yyyy")
@@ -16,10 +15,10 @@ public class PostDTO implements Comparable<PostDTO> {
     private int category;
     private double price;
 
-    public PostDTO() {
+    public PostNoPromoDTO() {
     }
 
-    public PostDTO(Long id_post, Date date, Product details, int category, double price) {
+    public PostNoPromoDTO(Long id_post, Date date, Product details, int category, double price) {
         this.id_post = id_post;
         this.date = date;
         this.details = details;
@@ -27,8 +26,8 @@ public class PostDTO implements Comparable<PostDTO> {
         this.price = price;
     }
 
-    public static PostDTO convert(Post post) {
-        return new PostDTO(post.getId_post(), post.getDate(), post.getDetail(), post.getCategory(), post.getPrice());
+    public static PostNoPromoDTO convert(Post post) {
+        return new PostNoPromoDTO(post.getId_post(), post.getDate(), post.getDetail(), post.getCategory(), post.getPrice());
     }
 
     public Long getId_post() {
@@ -72,7 +71,7 @@ public class PostDTO implements Comparable<PostDTO> {
     }
 
     @Override
-    public int compareTo(PostDTO o) {
+    public int compareTo(PostNoPromoDTO o) {
         return this.getDate().compareTo(o.getDate());
     }
 }

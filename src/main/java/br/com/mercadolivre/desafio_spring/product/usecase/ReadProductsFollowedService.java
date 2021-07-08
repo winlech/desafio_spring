@@ -1,6 +1,6 @@
 package br.com.mercadolivre.desafio_spring.product.usecase;
 
-import br.com.mercadolivre.desafio_spring.product.dto.PostDTO;
+import br.com.mercadolivre.desafio_spring.product.dto.PostNoPromoDTO;
 import br.com.mercadolivre.desafio_spring.product.entities.Post;
 import br.com.mercadolivre.desafio_spring.product.dto.UserPostsDTO;
 import br.com.mercadolivre.desafio_spring.product.repositories.PostRepository;
@@ -24,9 +24,9 @@ public class ReadProductsFollowedService {
         this.userRepository = userRepository;
     }
 
-    public UserPostsDTO execute(Long userId, String s) {
+    public UserPostsDTO<PostNoPromoDTO> execute(Long userId, String order) {
         User user = userRepository.findById(userId);
-        List<PostDTO> postsDto;
+        List<PostNoPromoDTO> postsDto;
 
         postsDto = getAllPostsFromFollowing(user);
 
@@ -34,21 +34,21 @@ public class ReadProductsFollowedService {
                             .filter(p -> p.getDate().after(getDateTwoWeeksBefore()))
                             .collect(Collectors.toList());
 
-        if (s.equals("") || s.equals("date_desc"))
+        if (order.equals("") || order.equals("date_desc"))
             postsDto.sort(Collections.reverseOrder());
-        else if (s.equals("date_asc"))
+        else if (order.equals("date_asc"))
             postsDto.sort(Comparator.naturalOrder());
         else
             throw new NotValidOrderTypeException();
 
-        return new UserPostsDTO(user.getUserId(), postsDto);
+        return new UserPostsDTO<>(user.getUserId(), postsDto);
     }
 
-    private List<PostDTO> getAllPostsFromFollowing(User user) {
-        List<PostDTO> postsDto = new ArrayList<>();
+    private List<PostNoPromoDTO> getAllPostsFromFollowing(User user) {
+        List<PostNoPromoDTO> postsDto = new ArrayList<>();
         for (FollowDTO userFollowing: user.getFollowing()) {
             List<Post> posts = postRepository.findAllByUserId(userFollowing.getUserId());
-            posts.forEach(p -> postsDto.add(PostDTO.convert(p)));
+            posts.forEach(p -> postsDto.add(PostNoPromoDTO.convert(p)));
         }
         return postsDto;
     }
