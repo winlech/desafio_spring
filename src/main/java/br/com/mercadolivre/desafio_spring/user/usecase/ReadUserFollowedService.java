@@ -2,10 +2,9 @@ package br.com.mercadolivre.desafio_spring.user.usecase;
 
 import br.com.mercadolivre.desafio_spring.shared.utils.OrderUserNameFollow;
 import br.com.mercadolivre.desafio_spring.user.dto.UserFollowedDTO;
-import br.com.mercadolivre.desafio_spring.user.dto.UserFollowersDTO;
 import br.com.mercadolivre.desafio_spring.user.entities.User;
 import br.com.mercadolivre.desafio_spring.user.repositories.UserRepository;
-import br.com.mercadolivre.desafio_spring.validations.exceptions.UserNotFoundException;
+import br.com.mercadolivre.desafio_spring.shared.validations.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

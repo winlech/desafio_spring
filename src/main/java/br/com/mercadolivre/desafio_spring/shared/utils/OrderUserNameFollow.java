@@ -1,7 +1,7 @@
 package br.com.mercadolivre.desafio_spring.shared.utils;
 
 import br.com.mercadolivre.desafio_spring.user.dto.FollowDTO;
-import br.com.mercadolivre.desafio_spring.validations.exceptions.NotValidOrderTypeException;
+import br.com.mercadolivre.desafio_spring.shared.validations.exceptions.NotValidOrderTypeException;
 
 import java.util.Comparator;
 import java.util.List;

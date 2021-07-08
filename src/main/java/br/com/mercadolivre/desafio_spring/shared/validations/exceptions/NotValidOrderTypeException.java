@@ -1,4 +1,4 @@
-package br.com.mercadolivre.desafio_spring.validations.exceptions;
+package br.com.mercadolivre.desafio_spring.shared.validations.exceptions;
 
 public class NotValidOrderTypeException extends RuntimeException {
     public NotValidOrderTypeException() {

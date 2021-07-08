@@ -4,7 +4,7 @@ import br.com.mercadolivre.desafio_spring.product.entities.Post;
 import br.com.mercadolivre.desafio_spring.product.repositories.PostRepository;
 import br.com.mercadolivre.desafio_spring.user.entities.User;
 import br.com.mercadolivre.desafio_spring.user.repositories.UserRepository;
-import br.com.mercadolivre.desafio_spring.validations.exceptions.UserNotFoundException;
+import br.com.mercadolivre.desafio_spring.shared.validations.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
