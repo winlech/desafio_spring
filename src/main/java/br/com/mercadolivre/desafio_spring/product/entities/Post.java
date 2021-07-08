@@ -9,23 +9,14 @@ import java.util.Date;
 
 public class Post {
 
-    @NotNull
     private Long userId;
-    @NotNull
     private Long id_post;
-
-    @NotNull
-    @JsonSerialize(as = Date.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy",
-            lenient = OptBoolean.FALSE, locale = "pt-BR", timezone = "America/Sao_Paulo")
     private Date date;
-
-    @NotNull
     private Product detail;
-    @NotNull
     private int category;
-    @NotNull
     private double price;
+    private boolean hasPromo;
+    private double discount;
 
     public Post() {
     }
@@ -37,6 +28,35 @@ public class Post {
         this.detail = detail;
         this.category = category;
         this.price = price;
+        this.hasPromo = false;
+        this.discount = 0.0;
+    }
+
+    public Post(Long userId, Long id_post, Date date, Product detail, int category, double price, boolean hasPromo, double discount) {
+        this.userId = userId;
+        this.id_post = id_post;
+        this.date = date;
+        this.detail = detail;
+        this.category = category;
+        this.price = price;
+        this.hasPromo = hasPromo;
+        this.discount = discount;
+    }
+
+    public boolean isHasPromo() {
+        return hasPromo;
+    }
+
+    public void setHasPromo(boolean hasPromo) {
+        this.hasPromo = hasPromo;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     public Long getUserId() {
