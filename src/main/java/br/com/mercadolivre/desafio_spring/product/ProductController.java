@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
@@ -30,7 +31,9 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<UserPostsDTO> followedList(@PathVariable Long userId) {
-        return new ResponseEntity<>(readProductsFollowedService.execute(userId), HttpStatus.OK);
+    public ResponseEntity<UserPostsDTO> followedList(@PathVariable Long userId,
+                                                     @RequestParam(required = false,
+                                                                    name = "order")Optional<String> order) {
+        return new ResponseEntity<>(readProductsFollowedService.execute(userId, order.orElse("")), HttpStatus.OK);
     }
 }

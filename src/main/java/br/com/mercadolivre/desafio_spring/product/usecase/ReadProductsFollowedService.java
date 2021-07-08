@@ -4,6 +4,7 @@ import br.com.mercadolivre.desafio_spring.product.dto.PostDTO;
 import br.com.mercadolivre.desafio_spring.product.entities.Post;
 import br.com.mercadolivre.desafio_spring.product.dto.UserPostsDTO;
 import br.com.mercadolivre.desafio_spring.product.repositories.PostRepository;
+import br.com.mercadolivre.desafio_spring.shared.validations.exceptions.NotValidOrderTypeException;
 import br.com.mercadolivre.desafio_spring.user.dto.FollowDTO;
 import br.com.mercadolivre.desafio_spring.user.entities.User;
 import br.com.mercadolivre.desafio_spring.user.repositories.UserRepository;
@@ -23,7 +24,7 @@ public class ReadProductsFollowedService {
         this.userRepository = userRepository;
     }
 
-    public UserPostsDTO execute(Long userId) {
+    public UserPostsDTO execute(Long userId, String s) {
         User user = userRepository.findById(userId);
         List<PostDTO> postsDto;
 
@@ -33,7 +34,12 @@ public class ReadProductsFollowedService {
                             .filter(p -> p.getDate().after(getDateTwoWeeksBefore()))
                             .collect(Collectors.toList());
 
-        postsDto.sort(Collections.reverseOrder());
+        if (s.equals("") || s.equals("date_desc"))
+            postsDto.sort(Collections.reverseOrder());
+        else if (s.equals("date_asc"))
+            postsDto.sort(Comparator.naturalOrder());
+        else
+            throw new NotValidOrderTypeException();
 
         return new UserPostsDTO(user.getUserId(), postsDto);
     }
